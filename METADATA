@@ -1,0 +1,20 @@
+name: "x509-cert"
+description: "Pure Rust implementation of the X.509 Public Key Infrastructure Certificate format as described in RFC 5280."
+third_party {
+  url {
+    type: HOMEPAGE
+    value: "https://crates.io/crates/x509-cert"
+  }
+  url {
+    type: ARCHIVE
+    value: "https://static.crates.io/crates/x509-cert/x509-cert-0.1.0.crate"
+  }
+  version: "0.1.0"
+  # Dual-licensed, using the least restrictive per go/thirdpartylicenses#same.
+  license_type: NOTICE
+  last_upgrade_date {
+    year: 2022
+    month: 9
+    day: 6
+  }
+}
