@@ -45,9 +45,6 @@ rust_library_host {
         "libflagset",
         "libspki",
     ],
-    apex_available: [
-        "//apex_available:platform",
-        "com.android.virt",
-    ],
+    product_available: true,
     vendor_available: true,
 }
