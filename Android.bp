@@ -45,6 +45,36 @@ rust_library_host {
         "libflagset",
         "libspki",
     ],
+}
+
+rust_library_rlib {
+    name: "libx509_cert_nostd",
+    crate_name: "x509_cert",
+    cargo_env_compat: true,
+    cargo_pkg_version: "0.1.1",
+    srcs: ["src/lib.rs"],
+    edition: "2021",
+    features: ["alloc"],
+    rustlibs: [
+        "libconst_oid_nostd",
+        "libder_nostd",
+        "libflagset_nostd",
+        "libspki_nostd",
+    ],
+    apex_available: [
+        "//apex_available:platform",
+        "com.android.virt",
+    ],
+    prefer_rlib: true,
+    no_stdlibs: true,
+    stdlibs: [
+        "libcompiler_builtins.rust_sysroot",
+        "libcore.rust_sysroot",
+    ],
     product_available: true,
     vendor_available: true,
+    visibility: [
+         "//system/keymint:__subpackages__",
+    ]
+    ,
 }
