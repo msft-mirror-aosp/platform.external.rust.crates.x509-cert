@@ -1,6 +1,7 @@
 //! Attribute-related definitions as defined in X.501 (and updated by RFC 5280).
 
 use alloc::vec::Vec;
+use const_oid::db::rfc4519::{COUNTRY_NAME, DOMAIN_COMPONENT};
 use core::fmt::{self, Write};
 
 use const_oid::db::DB;
@@ -181,8 +182,14 @@ impl AttributeTypeAndValue<'_> {
             parser.add(c)?;
         }
 
+        let tag = match oid {
+            COUNTRY_NAME => Tag::PrintableString,
+            DOMAIN_COMPONENT => Tag::Ia5String,
+            _ => Tag::Utf8String,
+        };
+
         // Serialize.
-        let value = AnyRef::new(Tag::Utf8String, parser.as_bytes())?;
+        let value = AnyRef::new(tag, parser.as_bytes())?;
         let atv = AttributeTypeAndValue { oid, value };
         atv.to_vec()
     }
@@ -220,6 +227,7 @@ impl fmt::Display for AttributeTypeAndValue<'_> {
             Tag::PrintableString => self.value.printable_string().ok().map(|s| s.as_str()),
             Tag::Utf8String => self.value.utf8_string().ok().map(|s| s.as_str()),
             Tag::Ia5String => self.value.ia5_string().ok().map(|s| s.as_str()),
+            Tag::TeletexString => self.value.teletex_string().ok().map(|s| s.as_str()),
             _ => None,
         };
 
